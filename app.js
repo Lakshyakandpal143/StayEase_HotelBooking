@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV !="production"){
+require('dotenv').config();
+}
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -16,8 +20,6 @@ const localStrategy = require("passport-local");
 const User = require("./models/user.js");
 const mongo_url = "mongodb://127.0.0.1:27017/apnaGhar";
 
-
-
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
@@ -26,17 +28,23 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
-
-main()
-    .then(() => {
-        console.log("connected to DB");
-    }).catch((err) => {
-        console.log(err);
-    });
-
+// MongoDB connection with better error handling
 async function main() {
-    await mongoose.connect(mongo_url);
+    try {
+        await mongoose.connect(mongo_url, {
+            serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s
+            socketTimeoutMS: 45000, // Close sockets after 45s of inactivity
+        });
+        console.log("Connected to MongoDB successfully!");
+    } catch (err) {
+        console.error("MongoDB connection error:", err.message);
+        console.log("Please make sure MongoDB is running on your system.");
+        console.log("To start MongoDB, run: mongod");
+        process.exit(1);
+    }
 }
+
+main();
 
 
 const sessionOption = {

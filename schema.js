@@ -1,22 +1,21 @@
 const Joi = require("joi");
-const reviews = require("./models/reviews");
 
+/* ================= LISTING SCHEMA ================= */
 module.exports.listingSchema = Joi.object({
-    listings: Joi.object({
-        title: Joi.string().required(),
-        description: Joi.string().required(),
-        location: Joi.string().required(),
-        country: Joi.string().required(),
-        price: Joi.number().required().min(0),
-        image: Joi.string().allow("", null),
-    }).required(),
+  listing: Joi.object({
+    title: Joi.string().required(),
+    description: Joi.string().required(),
+    location: Joi.string().required(),
+    country: Joi.string().required(),
+    price: Joi.number().required().min(0),
+    image: Joi.string().allow("", null),
+  }).required(),
 });
 
-
-
+/* ================= REVIEW SCHEMA ================= */
 module.exports.reviewSchema = Joi.object({
-    reviews: Joi.object({
-        rating: Joi.number().required().min(1).max(5),
-        comment: Joi.string().required(),
-    }).required(),
+  reviews: Joi.object({
+    rating: Joi.number().required().min(1).max(5),
+    comment: Joi.string().required(),
+  }).required(),
 });

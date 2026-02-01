@@ -1,46 +1,52 @@
 <% layout("/layouts/boilerplate") %>
-    <div class="row">
-        <div class="col-8 offset-2">
-            <h3 class="mb-3">Create New Listing</h3>
-            <form action="/listings" method="post" novalidate class="needs-validation">
 
-                <div class="mb-3 ">
-                    <label for="title" class="form-label">Title</label>
-                    <input type="text" name="listings[title]" class="form-control" required>
-                    <div class="invalid-feedback">Enter valid Title</div>
-                </div>
-                <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea type="text" name="listings[description]" class="form-control" required></textarea>
-                    <div class="invalid-feedback">Enter valid Title</div>
-                </div>
-                <div class="row">
+<div class="row">
+  <div class="col-8 offset-2">
+    <h3 class="mb-3">Create New Listing</h3>
 
-                    <div class="mb-3 ">
-                        <label for="image" class="form-label">Image-URL/Link</label>
-                        <input type="text" name="listings[image]" class="form-control">
-                    </div>
-                </div>
-                <div class="row">
+    <form action="/listings" method="POST" novalidate
+          class="needs-validation"
+          enctype="multipart/form-data">
 
-                    <div class="mb-3 col-md-4">
-                        <label for="price" class="form-label">Price</label>
-                        <input type="text" name="listings[price]" class="form-control" required>
-                        <div class="invalid-feedback">Enter valid Price</div>
-                    </div>
-                    <div class="mb-3 col-md-8">
-                        <label for="country" class="form-label">Country</label>
-                        <input type="text" name="listings[country]" class="form-control" required>
-                        <div class="invalid-feedback">Enter valid Country</div>
-                    </div>
-                </div>
+      <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input type="text" name="listing[title]" class="form-control" required>
+        <div class="invalid-feedback">Enter valid Title</div>
+      </div>
 
-                <div class="mb-4">
-                    <label for="location" class="form-label">Location</label>
-                    <input type="text" name="listings[location]" class="form-control" required>
-                    <div class="invalid-feedback">Enter valid Location</div>
-                </div>
-                <button class="btn btn-dark add-btn">Add</button>
-            </form>
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea name="listing[description]" class="form-control" required></textarea>
+        <div class="invalid-feedback">Enter valid Description</div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Upload Image</label>
+        <!-- IMPORTANT: multer uses this name -->
+        <input type="file" name="listing[image]" class="form-control">
+      </div>
+
+      <div class="row">
+        <div class="mb-3 col-md-4">
+          <label class="form-label">Price</label>
+          <input type="text" name="listing[price]" class="form-control" required>
+          <div class="invalid-feedback">Enter valid Price</div>
         </div>
-    </div>
+
+        <div class="mb-3 col-md-8">
+          <label class="form-label">Country</label>
+          <input type="text" name="listing[country]" class="form-control" required>
+          <div class="invalid-feedback">Enter valid Country</div>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">Location</label>
+        <input type="text" name="listing[location]" class="form-control" required>
+        <div class="invalid-feedback">Enter valid Location</div>
+      </div>
+
+      <button class="btn btn-dark add-btn">Add</button>
+    </form>
+  </div>
+</div>
